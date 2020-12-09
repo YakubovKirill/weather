@@ -14,8 +14,11 @@
         <?php
             // Get cities list from musement.com
             $cities_url = 'https://api.musement.com/api/v3/cities';
-            $cities = array_slice(json_decode(get_data_response($cities_url), true), 0, $CITIES_COUNT);
-
+            $cities_data = array_slice(json_decode(get_data_response($cities_url), true), 0, $CITIES_COUNT);
+            
+            if ($CITIES_COUNT > count($cities_data)) $CITIES_COUNT = count($cities_data);
+            $cities = array_slice($cities_data, 0, $CITIES_COUNT);
+            
             foreach ($cities as $city_num => $city) {
                 $city_name = $city['name'];
 
